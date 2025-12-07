@@ -63,19 +63,19 @@ jobs:
             CADDY_VERSION=${{ env.CADDY_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          sbom: true
+          # sbom: true
           provenance: false
           outputs: type=local,dest=./sbom
           
-      - name: Upload SBOM artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom
-          path: |
-            ./sbom/**/*.spdx.json
-            ./sbom/**/*.cyclonedx.json
-            ./sbom/**/*.syft.json
+      # - name: Upload SBOM artifacts
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: sbom
+      #     path: |
+      #       ./sbom/**/*.spdx.json
+      #       ./sbom/**/*.cyclonedx.json
+      #       ./sbom/**/*.syft.json
 
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
