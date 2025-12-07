@@ -1,5 +1,13 @@
 ARG CADDY_VERSION=2.10.2
 
+# 필요한 도구 설치
+RUN apk add --no-cache git go ca-certificates
+
+ENV PATH="/root/go/bin:${PATH}"
+
+# xcaddy 설치 (버전 고정 권장)
+RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+
 FROM caddy:${CADDY_VERSION}-builder-alpine AS builder
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
