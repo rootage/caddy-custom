@@ -16,6 +16,7 @@ RUN --mount=type=cache,target=/go/pkg/mod \
       --with github.com/caddy-dns/cloudflare \
       --with github.com/WeidiDeng/caddy-cloudflare-ip \
       --with github.com/fvbommel/caddy-combine-ip-ranges \
+      #--with github.com/fvbommel/caddy-dns-ip-range \
       --with github.com/greenpau/caddy-security \
       --with github.com/porech/caddy-maxmind-geolocation
       # --with github.com/corazawaf/coraza-caddy/v2 \
