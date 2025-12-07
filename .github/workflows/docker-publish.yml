@@ -50,7 +50,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push
+      - name: Build and push with SBOM
+        id: build-and-push
         uses: docker/build-push-action@v5
         with:
           context: .
