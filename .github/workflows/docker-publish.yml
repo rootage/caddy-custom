@@ -64,11 +64,13 @@ jobs:
           cache-to: type=gha,mode=max
           sbom: true
           provenance: false
-
-      - name: find SBOM files
+          outputs: type=local,dest=./sbom
+      
+      - name: List SBOM files
         run: |
-          find . -type f \( -name '*.spdx.json' -o -name '*.cyclonedx.json' -o -name '*.syft.json' \) -print || true
-
+          ls -la ./sbom || true
+          find ./sbom -type f -maxdepth 4 -print || true
+          
       - name: Upload SBOM artifacts
         if: always()
         uses: actions/upload-artifact@v4
