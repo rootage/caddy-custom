@@ -3,7 +3,7 @@ ARG CADDY_VERSION=2.10.2
 FROM caddy:${CADDY_VERSION}-builder-alpine AS builder
 
 # 필요한 도구 설치
-RUN apk add --no-cache git go ca-certificates
+RUN apk add --no-cache git go ca-certificates binutils
 
 ENV PATH="/root/go/bin:${PATH}"
 
@@ -17,11 +17,13 @@ RUN --mount=type=cache,target=/go/pkg/mod \
       --with github.com/WeidiDeng/caddy-cloudflare-ip \
       --with github.com/fvbommel/caddy-combine-ip-ranges \
       --with github.com/greenpau/caddy-security \
-      --with github.com/porech/caddy-maxmind-geolocation \
+      --with github.com/porech/caddy-maxmind-geolocation
       # --with github.com/corazawaf/coraza-caddy/v2 \
       # --with github.com/caddyserver/transform-encoder \
-      # --with github.com/greenpau/caddy-trace \
-      --ldflags="-s -w"
+      # --with github.com/greenpau/caddy-trace
+      
+# strip으로 심볼 제거
+RUN strip /usr/bin/caddy || true
 
 FROM caddy:${CADDY_VERSION}-alpine
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
