@@ -21,9 +21,6 @@ RUN --mount=type=cache,target=/go/pkg/mod \
       # --with github.com/corazawaf/coraza-caddy/v2 \
       # --with github.com/caddyserver/transform-encoder \
       # --with github.com/greenpau/caddy-trace
-      
-# strip으로 심볼 제거
-RUN strip /usr/bin/caddy || true
 
 FROM caddy:${CADDY_VERSION}-alpine
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
