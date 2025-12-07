@@ -64,7 +64,12 @@ jobs:
           cache-to: type=gha,mode=max
           sbom: true
           provenance: false
-          
+
+      - name: Debug - list workspace
+        run: |
+          ls -la
+          find . -maxdepth 4 -type f \( -name '*.spdx.json' -o -name '*.cyclonedx.json' -o -name '*.syft.json' \) -print || true
+
       - name: Upload SBOM artifacts
         if: always()
         uses: actions/upload-artifact@v4
