@@ -65,10 +65,9 @@ jobs:
           sbom: true
           provenance: false
 
-      - name: Debug - list workspace
+      - name: find SBOM files
         run: |
-          ls -la
-          find . -maxdepth 4 -type f \( -name '*.spdx.json' -o -name '*.cyclonedx.json' -o -name '*.syft.json' \) -print || true
+          find . -type f \( -name '*.spdx.json' -o -name '*.cyclonedx.json' -o -name '*.syft.json' \) -print || true
 
       - name: Upload SBOM artifacts
         if: always()
