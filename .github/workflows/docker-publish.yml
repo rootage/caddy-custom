@@ -1,15 +1,20 @@
 name: Publish Caddy Container
 
 on:
-  push:
-    branches: [ "main" ]
-    tags: [ 'v*.*.*' ]
+  # push:
+  #   branches: [ "main" ]
+  #   tags: [ 'v*.*.*' ]
   workflow_dispatch:
+    inputs:
+      caddy_version:
+        description: 'Caddy version'
+        required: false
+        default: '2.10.2'
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  CADDY_VERSION: 2.10.2
+  CADDY_VERSION: ${{ github.event.inputs.caddy_version }}
 
 permissions:
   contents: read
