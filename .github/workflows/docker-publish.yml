@@ -12,7 +12,7 @@ on:
         default: '2.10.2'
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: ${{ secrets.REGISTRY_URL }}
   IMAGE_NAME: ${{ github.repository }}
   CADDY_VERSION: ${{ github.event.inputs.caddy_version }}
 
@@ -41,14 +41,14 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ secrets.REGISTRY_URL }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push with SBOM
         id: build-and-push
